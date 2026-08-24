@@ -14,6 +14,24 @@ O frontend Angular oferecerá uma interface em português para todas as capacida
 ## Visão C4 simplificada
 
 ```mermaid
+%%{init: {
+  "theme": "base",
+  "flowchart": { "htmlLabels": false },
+  "themeCSS": ".cluster-label text { fill: #334155 !important; paint-order: stroke; stroke: #f8fafc; stroke-width: 2px; stroke-linejoin: round; }",
+  "themeVariables": {
+    "background": "transparent",
+    "primaryColor": "#f8fafc",
+    "primaryTextColor": "#1f2937",
+    "primaryBorderColor": "#64748b",
+    "lineColor": "#64748b",
+    "secondaryColor": "#f1f5f9",
+    "tertiaryColor": "#ffffff",
+    "clusterBkg": "transparent",
+    "clusterBorder": "#94a3b8",
+    "edgeLabelBackground": "#f8fafc",
+    "fontFamily": "system-ui, sans-serif"
+  }
+}}%%
 flowchart LR
     user["Pessoa usuária"]
 
@@ -26,6 +44,14 @@ flowchart LR
     user -->|"Gerencia suas finanças"| web
     web -->|"HTTP/JSON + JWT"| api
     api -->|"Entity Framework Core"| database
+
+    classDef actor fill:#ffffff,stroke:#64748b,color:#1f2937,stroke-width:1.5px
+    classDef application fill:#e2e8f0,stroke:#475569,color:#0f172a,stroke-width:1.5px
+    classDef datastore fill:#f8fafc,stroke:#64748b,color:#1f2937,stroke-width:1.5px
+    class user actor
+    class web,api application
+    class database datastore
+    style system fill:transparent,stroke:#94a3b8,stroke-width:1px
 ```
 
 No desenvolvimento, o Angular encaminhará `/api/**` para `http://localhost:5099`. O proxy remove o prefixo `/api`, pois a API publica seus endpoints na raiz.
