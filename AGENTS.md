@@ -40,5 +40,6 @@
 
 - `README.md` — visão geral.
 - `docs/architecture.md` — arquitetura, domínio, integração e decisões técnicas.
-- `docs/kanban-do-projeto.html` — acompanhamento visual; não é fonte de requisitos.
+- `docs/kanban-do-projeto.md` — fonte oficial do estado do projeto; não é fonte de requisitos.
+- `docs/kanban-do-projeto.html`, quando existir localmente, é apenas uma visualização auxiliar ignorada pelo Git e não precisa ser mantida manualmente em sincronia com o Markdown.
 - `rv-personal-finance` — implementação real do backend e fonte de verdade dos contratos.

@@ -47,4 +47,4 @@ npm run build
 
 As decisões técnicas, integrações e limitações atuais estão em [docs/architecture.md](docs/architecture.md).
 
-O acompanhamento visual do projeto está em [docs/kanban-do-projeto.html](docs/kanban-do-projeto.html).
+O estado atual e os próximos passos do projeto estão em [docs/kanban-do-projeto.md](docs/kanban-do-projeto.md).
