@@ -2,11 +2,15 @@
 
 > 📌 **Status:** V1 do frontend Angular implementada e validada localmente.
 
-Frontend web do **RV Personal Finance**, criado para operar de forma simples as funcionalidades disponíveis na API.
+Esta aplicação dá continuidade ao **RV Personal Finance**, um sistema real de finanças pessoais para uso doméstico que também funciona como laboratório de engenharia e aprendizado.
+
+Seu objetivo é levar ao navegador, em uma experiência simples e em português, as funcionalidades de autenticação, acompanhamento de saldos e gestão financeira oferecidas pela API.
 
 ## Relação com o backend
 
 Este repositório contém somente o frontend. O domínio, as regras de negócio e os contratos HTTP pertencem ao backend [.NET RV Personal Finance](https://github.com/rafaelvanhoni/rv-personal-finance), que é a fonte de verdade do sistema.
+
+O frontend é responsável pela experiência de uso, enquanto domínio, validações e contratos permanecem no backend, evitando duplicar regras de negócio no navegador.
 
 ## Stack
 
@@ -15,7 +19,7 @@ Este repositório contém somente o frontend. O domínio, as regras de negócio 
 - Reactive Forms e HttpClient
 - HTML e SCSS
 
-## Telas previstas
+## Funcionalidades da V1
 
 - Login e cadastro de usuário
 - Dashboard financeiro
