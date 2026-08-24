@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RV Personal Finance Web — Quadro do Projeto</title>
+<style>
+  :root {
+    --bg: #0f1720;
+    --panel: #16212e;
+    --card: #1c2836;
+    --text: #eef2f6;
+    --muted: #93a3b5;
+    --border: #2a3849;
+
+    --done: #22c98f;
+    --done-bg: #12281f;
+    --now: #4fa8ff;
+    --now-bg: #10233a;
+    --next: #b28aff;
+    --next-bg: #241c3d;
+    --later: #ffb648;
+    --later-bg: #2e2311;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    background: radial-gradient(1200px 600px at 10% -10%, #1a2a3d 0%, var(--bg) 55%);
+    color: var(--text);
+    padding: 40px 32px 64px;
+  }
+
+  header {
+    max-width: 1400px;
+    margin: 0 auto 32px;
+  }
+
+  .eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--done);
+    background: var(--done-bg);
+    border: 1px solid #1e4a38;
+    padding: 5px 12px;
+    border-radius: 999px;
+    margin-bottom: 14px;
+  }
+
+  h1 {
+    font-size: 30px;
+    font-weight: 700;
+    margin: 0 0 8px;
+    background: linear-gradient(90deg, #ffffff 0%, #a9c4e0 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  .subtitle {
+    color: var(--muted);
+    font-size: 15px;
+    max-width: 760px;
+    line-height: 1.6;
+    margin: 0 0 20px;
+  }
+
+  .legend {
+    display: flex;
+    gap: 18px;
+    flex-wrap: wrap;
+    font-size: 13px;
+    color: var(--muted);
+  }
+
+  .legend span {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .dot {
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    display: inline-block;
+  }
+
+  .board {
+    max-width: 1400px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    align-items: start;
+  }
+
+  .column {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 16px;
+    min-height: 200px;
+  }
+
+  .column-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 14px;
+    padding: 0 4px;
+  }
+
+  .column-title {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: 700;
+    font-size: 15px;
+  }
+
+  .count {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--muted);
+    background: rgba(255,255,255,0.06);
+    padding: 2px 9px;
+    border-radius: 999px;
+  }
+
+  .cards {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--card-accent, var(--border));
+    border-radius: 10px;
+    padding: 12px 14px;
+    transition: transform 0.15s ease, border-color 0.15s ease;
+  }
+
+  .card:hover {
+    transform: translateY(-2px);
+    border-color: var(--card-accent, var(--border));
+  }
+
+  .card-title {
+    font-size: 14px;
+    font-weight: 600;
+    margin: 0 0 5px;
+    color: var(--text);
+  }
+
+  .card-desc {
+    font-size: 12.5px;
+    color: var(--muted);
+    line-height: 1.5;
+    margin: 0;
+  }
+
+  .card-tag {
+    display: inline-block;
+    font-size: 10.5px;
+    font-weight: 600;
+    letter-spacing: 0.03em;
+    text-transform: uppercase;
+    padding: 2px 8px;
+    border-radius: 999px;
+    margin-bottom: 7px;
+  }
+
+  .col-done .column-title { color: var(--done); }
+  .col-done .dot { background: var(--done); }
+  .col-done .card { --card-accent: var(--done); }
+  .col-done .card-tag { background: var(--done-bg); color: var(--done); }
+
+  .col-now .column-title { color: var(--now); }
+  .col-now .dot { background: var(--now); }
+  .col-now .card { --card-accent: var(--now); }
+  .col-now .card-tag { background: var(--now-bg); color: var(--now); }
+
+  .col-next .column-title { color: var(--next); }
+  .col-next .dot { background: var(--next); }
+  .col-next .card { --card-accent: var(--next); }
+  .col-next .card-tag { background: var(--next-bg); color: var(--next); }
+
+  .col-later .column-title { color: var(--later); }
+  .col-later .dot { background: var(--later); }
+  .col-later .card { --card-accent: var(--later); }
+  .col-later .card-tag { background: var(--later-bg); color: var(--later); }
+
+  footer {
+    max-width: 1400px;
+    margin: 32px auto 0;
+    color: var(--muted);
+    font-size: 12.5px;
+    line-height: 1.6;
+    text-align: center;
+  }
+
+  @media (max-width: 1100px) {
+    .board { grid-template-columns: repeat(2, 1fr); }
+  }
+
+  @media (max-width: 640px) {
+    .board { grid-template-columns: 1fr; }
+    body { padding: 24px 16px 48px; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="eyebrow">💰 RV Personal Finance Web</div>
+  <h1>Quadro do projeto</h1>
+  <p class="subtitle">
+    Do entendimento da API existente até um frontend Angular funcional.
+    O quadro separa o escopo imediato do frontend das evoluções futuras que pertencem ao backend.
+  </p>
+  <div class="legend">
+    <span><span class="dot" style="background:#22c98f"></span> Concluído</span>
+    <span><span class="dot" style="background:#4fa8ff"></span> Agora</span>
+    <span><span class="dot" style="background:#b28aff"></span> Próximo</span>
+    <span><span class="dot" style="background:#ffb648"></span> Backlog</span>
+  </div>
+</header>
+
+<main class="board">
+
+  <section class="column col-done">
+    <div class="column-header">
+      <div class="column-title"><span class="dot"></span> Concluído</div>
+      <span class="count">9</span>
+    </div>
+    <div class="cards">
+      <article class="card">
+        <span class="card-tag">Descoberta</span>
+        <p class="card-title">Backend completamente inspecionado</p>
+        <p class="card-desc">Domínio, ownership, autenticação, endpoints, DTOs, validações, persistência e testes mapeados.</p>
+      </article>
+      <article class="card">
+        <span class="card-tag">Arquitetura</span>
+        <p class="card-title">Estrutura do frontend aprovada</p>
+        <p class="card-desc">Angular standalone, organização por feature, seis telas e integração JWT definidos.</p>
+      </article>
+      <article class="card">
+        <span class="card-tag">Documentação</span>
+        <p class="card-title">Documentação inicial criada</p>
+        <p class="card-desc">README, arquitetura técnica e quadro do projeto sintetizam o estado atual.</p>
+      </article>
+      <article class="card">
+        <span class="card-tag">Fundação</span>
+        <p class="card-title">Workspace Angular 22 inicializado</p>
+        <p class="card-desc">Base standalone, Material, SCSS, rotas lazy e proxy local configurados.</p>
+      </article>
+      <article class="card">
+        <span class="card-tag">Autenticação</span>
+        <p class="card-title">Login, cadastro e sessão JWT</p>
+        <p class="card-desc">Rotas públicas, guard, interceptor, tratamento de 401 e logout local concluídos.</p>
+      </article>
+      <article class="card">
+        <span class="card-tag">Dashboard</span>
+        <p class="card-title">Visão geral financeira</p>
+        <p class="card-desc">Saldo atual, receitas, despesas e gastos acumulados por categoria implementados.</p>
+      </article>
+      <article class="card">
+        <span class="card-tag">Cadastros</span>
+        <p class="card-title">Contas e categorias</p>
+        <p class="card-desc">CRUDs, diálogos, confirmações, conflitos e consulta de saldo concluídos.</p>
+      </article>
+      <article class="card">
+        <span class="card-tag">Movimentações</span>
+        <p class="card-title">Transações</p>
+        <p class="card-desc">CRUD completo com conta, categoria, tipo, valor e data concluído.</p>
+      </article>
+      <article class="card">
+        <span class="card-tag">Qualidade</span>
+        <p class="card-title">Testes e refinamento concluídos</p>
+        <p class="card-desc">Fluxos críticos testados, build válido e interface revisada em desktop e celular.</p>
+      </article>
+    </div>
+  </section>
+
+  <section class="column col-now">
+    <div class="column-header">
+      <div class="column-title"><span class="dot"></span> Agora</div>
+      <span class="count">0</span>
+    </div>
+    <div class="cards">
+    </div>
+  </section>
+
+  <section class="column col-next">
+    <div class="column-header">
+      <div class="column-title"><span class="dot"></span> Próximo</div>
+      <span class="count">1</span>
+    </div>
+    <div class="cards">
+      <article class="card">
+        <span class="card-tag">Operação</span>
+        <p class="card-title">Deploy no servidor Linux</p>
+        <p class="card-desc">Publicar frontend e backend no servidor para o primeiro uso real.</p>
+      </article>
+    </div>
+  </section>
+
+  <section class="column col-later">
+    <div class="column-header">
+      <div class="column-title"><span class="dot"></span> Backlog</div>
+      <span class="count">7</span>
+    </div>
+    <div class="cards">
+      <article class="card">
+        <span class="card-tag">Backend futuro</span>
+        <p class="card-title">Validar cadastro e credenciais</p>
+        <p class="card-desc">Adicionar validação própria para nome, e-mail e senha sem depender do frontend.</p>
+      </article>
+      <article class="card">
+        <span class="card-tag">Backend futuro</span>
+        <p class="card-title">Normalizar e garantir e-mail único</p>
+        <p class="card-desc">Tratar diferenças de caixa e criar restrição de unicidade no banco.</p>
+      </article>
+      <article class="card">
+        <span class="card-tag">Backend futuro</span>
+        <p class="card-title">Evoluir a sessão autenticada</p>
+        <p class="card-desc">Avaliar refresh token, perfil do usuário e encerramento de sessão no servidor.</p>
+      </article>
+      <article class="card">
+        <span class="card-tag">Backend futuro</span>
+        <p class="card-title">Paginar, filtrar e ordenar consultas</p>
+        <p class="card-desc">Evitar que listas crescentes sejam sempre carregadas por completo.</p>
+      </article>
+      <article class="card">
+        <span class="card-tag">Backend futuro</span>
+        <p class="card-title">Consultar histórico por período</p>
+        <p class="card-desc">Permitir filtros de data em transações e indicadores do dashboard.</p>
+      </article>
+      <article class="card">
+        <span class="card-tag">Backend futuro</span>
+        <p class="card-title">Explicitar moeda no domínio</p>
+        <p class="card-desc">Substituir a suposição visual de BRL por um contrato financeiro explícito.</p>
+      </article>
+      <article class="card">
+        <span class="card-tag">Backend futuro</span>
+        <p class="card-title">Padronizar exposição da API</p>
+        <p class="card-desc">Avaliar CORS, prefixo, versionamento e DTOs com nomes das relações.</p>
+      </article>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  Atualizado em 24/08/2026 · Visão de acompanhamento, não é fonte oficial de requisitos.<br>
+  Itens marcados como “Backend futuro” não pertencem ao escopo imediato do frontend.
+</footer>
+
+</body>
+</html>
