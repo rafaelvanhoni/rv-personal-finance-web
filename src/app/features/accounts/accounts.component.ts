@@ -47,7 +47,12 @@ export class AccountsComponent implements OnInit {
   readonly errorMessage = signal('');
 
   ngOnInit(): void { this.load(); }
-  load(): void { this.loading.set(true); this.errorMessage.set(''); this.service.list().subscribe({ next: (items) => { this.accounts.set([...items].sort((a,b) => a.name.localeCompare(b.name))); this.loading.set(false); }, error: (error: ApiError) => { this.errorMessage.set(error.message); this.loading.set(false); } }); }
+  load(): void {
+    this.balances.set({});
+    this.loading.set(true);
+    this.errorMessage.set('');
+    this.service.list().subscribe({ next: (items) => { this.accounts.set([...items].sort((a,b) => a.name.localeCompare(b.name))); this.loading.set(false); }, error: (error: ApiError) => { this.errorMessage.set(error.message); this.loading.set(false); } });
+  }
   openForm(account?: Account): void { this.dialog.open(AccountDialogComponent, { data: { account }, width: '520px' }).afterClosed().subscribe((saved?: Account) => { if (saved) { this.snackBar.open(account ? 'Conta atualizada.' : 'Conta criada.', 'Fechar', { duration: 3000 }); this.load(); } }); }
   consultBalance(account: Account): void { if (this.loadingBalanceId()) return; this.loadingBalanceId.set(account.id); this.service.getBalance(account.id).subscribe({ next: (balance) => { this.balances.update((all) => ({ ...all, [account.id]: balance })); this.loadingBalanceId.set(''); }, error: (error: ApiError) => { this.snackBar.open(error.message, 'Fechar', { duration: 5000 }); this.loadingBalanceId.set(''); } }); }
   confirmDelete(account: Account): void { this.dialog.open(ConfirmDialogComponent, { data: { title: 'Excluir conta?', message: `A conta “${account.name}” será excluída. Esta ação não pode ser desfeita.` } }).afterClosed().subscribe((confirmed) => { if (confirmed) this.delete(account); }); }
