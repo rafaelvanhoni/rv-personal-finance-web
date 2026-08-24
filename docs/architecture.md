@@ -16,7 +16,12 @@ O frontend Angular oferecerá uma interface em português para todas as capacida
 ```mermaid
 %%{init: {
   "theme": "base",
-  "flowchart": { "htmlLabels": false },
+  "flowchart": {
+    "htmlLabels": false,
+    "nodeSpacing": 70,
+    "rankSpacing": 220,
+    "diagramPadding": 24
+  },
   "themeCSS": ".cluster-label text { fill: #334155 !important; paint-order: stroke; stroke: #f8fafc; stroke-width: 2px; stroke-linejoin: round; }",
   "themeVariables": {
     "background": "transparent",
